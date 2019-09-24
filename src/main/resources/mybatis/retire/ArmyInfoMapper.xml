@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.retire.armyinfo.mapper.ArmyInfoMapper">
+
+    <resultMap type="ArmyInfo" id="ArmyInfoResult">
+        <result property="id" column="id"/>
+        <result property="account" column="account"/>
+        <result property="password" column="password"/>
+        <result property="username" column="username"/>
+        <result property="role" column="role"/>
+        <result property="sex" column="sex"/>
+        <result property="nation" column="nation"/>
+        <result property="birthday" column="birthday"/>
+        <result property="idCard" column="id_card"/>
+        <result property="nativePlace" column="native_place"/>
+        <result property="userType" column="user_type"/>
+        <result property="politicsStatus" column="politics_status"/>
+        <result property="degreeOfEducation" column="degree_of_education"/>
+        <result property="address" column="address"/>
+        <result property="householdType" column="household_type"/>
+        <result property="maritalStatus" column="marital_status"/>
+        <result property="phone" column="phone"/>
+        <result property="telephone" column="telephone"/>
+        <result property="qqNum" column="qq_num"/>
+        <result property="workStatus" column="work_status"/>
+        <result property="slavaStatus" column="slava_status"/>
+        <result property="applySlavaTime" column="apply_slava_time"/>
+        <result property="hangSlavaTime" column="hang_slava_time"/>
+        <result property="userIncome" column="user_income"/>
+        <result property="workDept" column="work_dept"/>
+        <result property="deprType" column="depr_type"/>
+        <result property="medicare" column="medicare"/>
+        <result property="annuity" column="annuity"/>
+        <result property="accumulation" column="accumulation"/>
+        <result property="grant" column="grant"/>
+        <result property="disabled" column="disabled"/>
+        <result property="houseStatus" column="house_status"/>
+        <result property="assistance" column="assistance"/>
+        <result property="gatherDept" column="gather_dept"/>
+        <result property="gatherUser" column="gather_user"/>
+        <result property="militaryTime" column="military_time"/>
+        <result property="retiredTime" column="retired_time"/>
+        <result property="troopsName" column="troops_name"/>
+        <result property="militaryNation" column="military_nation"/>
+        <result property="certificateNumber" column="certificate_number"/>
+        <result property="photo" column="photo"/>
+        <result property="area" column="area"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="area" column="area"/>
+    </resultMap>
+
+    <sql id="selectArmyInfoVo">
+        select id, account, password, username, role, sex, nation, birthday, id_card, native_place, user_type, politics_status, degree_of_education, address, household_type, marital_status, phone, telephone, qq_num, work_status, slava_status, apply_slava_time, hang_slava_time, user_income, work_dept, depr_type, medicare, annuity, accumulation, 'grant', disabled, house_status, assistance, gather_dept, gather_user, military_time, retired_time, troops_name, military_nation, certificate_number, photo, area, create_time, update_time from app_army_info
+    </sql>
+
+    <select id="selectArmyInfoList" parameterType="ArmyInfo" resultMap="ArmyInfoResult">
+        <include refid="selectArmyInfoVo"/>
+        <where>
+            <if test="account != null  and account != ''">and account = #{account}</if>
+            <if test="username != null  and username != ''">and username like concat('%', #{username}, '%')</if>
+            <if test="idCard != null  and idCard != ''">and id_card = #{idCard}</if>
+            <if test="userType != null and userType != ''">and user_type = #{userType}</if>
+            <if test="politicsStatus != null  and politicsStatus != ''">and politics_status = #{politicsStatus}</if>
+            <if test="telephone != null  and telephone != ''">and telephone = #{telephone}</if>
+            <if test="area != null  and area != '' and area != '黔南布依族苗族自治州福泉市'">and area = #{area}</if>
+            and role = "普通用户"
+        </where>
+    </select>
+
+    <select id="selectArmyInfoById" parameterType="string" resultMap="ArmyInfoResult">
+        <include refid="selectArmyInfoVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertArmyInfo" parameterType="ArmyInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into app_army_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="account != null  and account != ''">account,</if>
+            <if test="password != null  and password != ''">password,</if>
+            <if test="username != null  and username != ''">username,</if>
+            <if test="sex != null  and sex != ''">sex,</if>
+            <if test="role != null  and role != ''">role,</if>
+            <if test="nation != null  and nation != ''">nation,</if>
+            <if test="birthday != null ">birthday,</if>
+            <if test="idCard != null  and idCard != ''">id_card,</if>
+            <if test="nativePlace != null  and nativePlace != ''">native_place,</if>
+            <if test="userType != null and userType != ''">user_type,</if>
+            <if test="politicsStatus != null  and politicsStatus != ''">politics_status,</if>
+            <if test="degreeOfEducation != null  and degreeOfEducation != ''">degree_of_education,</if>
+            <if test="address != null  and address != ''">address,</if>
+            <if test="householdType != null  and householdType != ''">household_type,</if>
+            <if test="maritalStatus != null  and maritalStatus != ''">marital_status,</if>
+            <if test="phone != null  and phone != ''">phone,</if>
+            <if test="telephone != null  and telephone != ''">telephone,</if>
+            <if test="qqNum != null  and qqNum != ''">qq_num,</if>
+            <if test="workStatus != null and workStatus != ''">work_status,</if>
+            <if test="slavaStatus != null and slavaStatus != ''">slava_status,</if>
+            <if test="applySlavaTime != null">apply_slava_time,</if>
+            <if test="hangSlavaTime != null">hang_slava_time,</if>
+            <if test="userIncome != null  and userIncome != ''">user_income,</if>
+            <if test="workDept != null  and workDept != ''">work_dept,</if>
+            <if test="deprType != null  and deprType != ''">depr_type,</if>
+            <if test="medicare != null and medicare != ''">medicare,</if>
+            <if test="annuity != null  and annuity != ''">annuity,</if>
+            <if test="accumulation != null  and accumulation != ''">accumulation,</if>
+            <if test="grant != null  and grant != ''">app_army_info.grant,</if>
+            <if test="disabled != null  and disabled != ''">disabled,</if>
+            <if test="houseStatus != null  and houseStatus != ''">house_status,</if>
+            <if test="assistance != null  and assistance != ''">assistance,</if>
+            <if test="gatherDept != null  and gatherDept != ''">gather_dept,</if>
+            <if test="gatherUser != null  and gatherUser != ''">gather_user,</if>
+            <if test="militaryTime != null ">military_time,</if>
+            <if test="retiredTime != null ">retired_time,</if>
+            <if test="troopsName != null  and troopsName != ''">troops_name,</if>
+            <if test="militaryNation != null  and militaryNation != ''">military_nation,</if>
+            <if test="certificateNumber != null  and certificateNumber != ''">certificate_number,</if>
+            <if test="photo != null  and photo != ''">photo,</if>
+            <if test="area != null  and area != ''">area,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateTime != null ">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="account != null  and account != ''">#{account},</if>
+            <if test="password != null  and password != ''">#{password},</if>
+            <if test="username != null  and username != ''">#{username},</if>
+            <if test="sex != null  and sex != ''">#{sex},</if>
+            <if test="role != null  and role != ''">#{role},</if>
+            <if test="nation != null  and nation != ''">#{nation},</if>
+            <if test="birthday != null ">#{birthday},</if>
+            <if test="idCard != null  and idCard != ''">#{idCard},</if>
+            <if test="nativePlace != null  and nativePlace != ''">#{nativePlace},</if>
+            <if test="userType != null and userType != ''">#{userType},</if>
+            <if test="politicsStatus != null  and politicsStatus != ''">#{politicsStatus},</if>
+            <if test="degreeOfEducation != null  and degreeOfEducation != ''">#{degreeOfEducation},</if>
+            <if test="address != null  and address != ''">#{address},</if>
+            <if test="householdType != null  and householdType != ''">#{householdType},</if>
+            <if test="maritalStatus != null  and maritalStatus != ''">#{maritalStatus},</if>
+            <if test="phone != null  and phone != ''">#{phone},</if>
+            <if test="telephone != null  and telephone != ''">#{telephone},</if>
+            <if test="qqNum != null  and qqNum != ''">#{qqNum},</if>
+            <if test="workStatus != null and workStatus != ''">#{workStatus},</if>
+            <if test="slavaStatus != null and slavaStatus != ''">#{slavaStatus},</if>
+            <if test="applySlavaTime != null ">#{applySlavaTime},</if>
+            <if test="hangSlavaTime != null ">#{hangSlavaTime},</if>
+            <if test="userIncome != null  and userIncome != ''">#{userIncome},</if>
+            <if test="workDept != null  and workDept != ''">#{workDept},</if>
+            <if test="deprType != null  and deprType != ''">#{deprType},</if>
+            <if test="medicare != null and medicare != ''">#{medicare},</if>
+            <if test="annuity != null  and annuity != ''">#{annuity},</if>
+            <if test="accumulation != null  and accumulation != ''">#{accumulation},</if>
+            <if test="grant != null  and grant != ''">#{grant},</if>
+            <if test="disabled != null  and disabled != ''">#{disabled},</if>
+            <if test="houseStatus != null  and houseStatus != ''">#{houseStatus},</if>
+            <if test="assistance != null  and assistance != ''">#{assistance},</if>
+            <if test="gatherDept != null  and gatherDept != ''">#{gatherDept},</if>
+            <if test="gatherUser != null  and gatherUser != ''">#{gatherUser},</if>
+            <if test="militaryTime != null ">#{militaryTime},</if>
+            <if test="retiredTime != null ">#{retiredTime},</if>
+            <if test="troopsName != null  and troopsName != ''">#{troopsName},</if>
+            <if test="militaryNation != null  and militaryNation != ''">#{militaryNation},</if>
+            <if test="certificateNumber != null  and certificateNumber != ''">#{certificateNumber},</if>
+            <if test="photo != null  and photo != ''">#{photo},</if>
+            <if test="area != null  and area != ''">#{area},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateArmyInfo" parameterType="ArmyInfo">
+        update app_army_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="account != null  and account != ''">account = #{account},</if>
+            <if test="password != null  and password != ''">password = #{password},</if>
+            <if test="username != null  and username != ''">username = #{username},</if>
+            <if test="sex != null  and sex != ''">sex = #{sex},</if>
+            <if test="role != null  and role != ''">#{role},</if>
+            <if test="nation != null  and nation != ''">nation = #{nation},</if>
+            <if test="birthday != null ">birthday = #{birthday},</if>
+            <if test="idCard != null  and idCard != ''">id_card = #{idCard},</if>
+            <if test="nativePlace != null  and nativePlace != ''">native_place = #{nativePlace},</if>
+            <if test="userType != null and userType != ''">user_type = #{userType},</if>
+            <if test="politicsStatus != null  and politicsStatus != ''">politics_status = #{politicsStatus},</if>
+            <if test="degreeOfEducation != null  and degreeOfEducation != ''">degree_of_education =
+                #{degreeOfEducation},
+            </if>
+            <if test="address != null  and address != ''">address = #{address},</if>
+            <if test="householdType != null  and householdType != ''">household_type = #{householdType},</if>
+            <if test="maritalStatus != null  and maritalStatus != ''">marital_status = #{maritalStatus},</if>
+            <if test="phone != null  and phone != ''">phone = #{phone},</if>
+            <if test="telephone != null  and telephone != ''">telephone = #{telephone},</if>
+            <if test="qqNum != null  and qqNum != ''">qq_num = #{qqNum},</if>
+            <if test="workStatus != null workStatus != ''">work_status = #{workStatus},</if>
+            <if test="slavaStatus != null workStatus != ''">slava_status = #{slavaStatus},</if>
+            <if test="applySlavaTime != null ">apply_slava_time = #{applySlavaTime},</if>
+            <if test="hangSlavaTime != null ">hang_slava_time = #{hangSlavaTime},</if>
+            <if test="userIncome != null  and userIncome != ''">user_income = #{userIncome},</if>
+            <if test="workDept != null  and workDept != ''">work_dept = #{workDept},</if>
+            <if test="deprType != null  and deprType != ''">depr_type = #{deprType},</if>
+            <if test="medicare != null and medicare != ''">medicare = #{medicare},</if>
+            <if test="annuity != null  and annuity != ''">annuity = #{annuity},</if>
+            <if test="accumulation != null  and accumulation != ''">accumulation = #{accumulation},</if>
+            <if test="grant != null  and grant != ''">app_army_info.grant = #{grant},</if>
+            <if test="disabled != null  and disabled != ''">disabled = #{disabled},</if>
+            <if test="houseStatus != null  and houseStatus != ''">house_status = #{houseStatus},</if>
+            <if test="assistance != null  and assistance != ''">assistance = #{assistance},</if>
+            <if test="gatherDept != null  and gatherDept != ''">gather_dept = #{gatherDept},</if>
+            <if test="gatherUser != null  and gatherUser != ''">gather_user = #{gatherUser},</if>
+            <if test="militaryTime != null ">military_time = #{militaryTime},</if>
+            <if test="retiredTime != null ">retired_time = #{retiredTime},</if>
+            <if test="troopsName != null  and troopsName != ''">troops_name = #{troopsName},</if>
+            <if test="militaryNation != null  and militaryNation != ''">military_nation = #{militaryNation},</if>
+            <if test="certificateNumber != null  and certificateNumber != ''">certificate_number =
+                #{certificateNumber},
+            </if>
+            <if test="photo != null  and photo != ''">photo = #{photo},</if>
+            <if test="area != null  and area != ''">area = #{area},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+            <if test="area != null ">area = #{area},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteArmyInfoById" parameterType="String">
+        delete from app_army_info where id = #{id}
+    </delete>
+
+    <delete id="deleteArmyInfoByIds" parameterType="String">
+        delete from app_army_info where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="appLogin" parameterType="string" resultMap="ArmyInfoResult">
+        <include refid="selectArmyInfoVo"/>
+        where telephone = #{tel} AND password=#{password}
+    </select>
+
+    <select id="getAllUserInfo" resultType="com.ruoyi.project.retire.armyinfo.domain.ArmyInfo">
+        <include refid="selectArmyInfoVo"/>
+    </select>
+
+    <select id="selectJoinCount" resultType="integer">
+        select count(*) FROM app_army_info WHERE military_time &gt;= #{startYear} and military_time &lt;= #{endYear}
+    </select>
+
+    <select id="selectRetireCount" resultType="integer">
+        select count(*) FROM app_army_info WHERE retired_time &gt;= #{startYear} and retired_time &lt;= #{endYear}
+    </select>
+
+    <select id="selectUserCount" resultType="integer">
+        select count(*) FROM app_army_info
+        <where>
+            <if test="role != null and role != ''">and role = #{role}</if>
+            <if test="userType != null and userType != ''">and user_type = #{userType}</if>
+        </where>
+    </select>
+
+
+
+</mapper>

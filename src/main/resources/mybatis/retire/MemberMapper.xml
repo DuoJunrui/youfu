@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.retire.member.mapper.MemberMapper">
+    
+    <resultMap type="Member" id="MemberResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="profession"    column="profession"    />
+        <result property="sex"    column="sex"    />
+        <result property="telephone"    column="telephone"    />
+        <result property="workAddress"    column="work_address"    />
+        <result property="armyInfoId"    column="army_info_id"    />
+        <result property="relation"    column="relation"    />
+        <result property="birth"    column="birth"    />
+        <result property="idCard"    column="id_card"    />
+        <result property="nation"    column="nation"    />
+        <result property="education"    column="education"    />
+
+
+    </resultMap>
+
+    <sql id="selectMemberVo">
+        select id, name, profession, sex, telephone, work_address, army_info_id, relation, birth, id_card, nation, education from app_member
+    </sql>
+
+    <select id="selectMemberList" parameterType="Member" resultMap="MemberResult">
+        <include refid="selectMemberVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="sex != null "> and sex = #{sex}</if>
+            <if test="telephone != null  and telephone != ''"> and telephone = #{telephone}</if>
+        </where>
+    </select>
+    
+    <select id="selectMemberById" parameterType="Long" resultMap="MemberResult">
+        <include refid="selectMemberVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertMember" parameterType="Member">
+        insert into app_member
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="name != null  and name != ''">name,</if>
+            <if test="profession != null  and profession != ''">profession,</if>
+            <if test="relation != null  and relation != ''">relation,</if>
+            <if test="sex != null ">sex,</if>
+            <if test="telephone != null  and telephone != ''">telephone,</if>
+            <if test="workAddress != null  and workAddress != ''">work_address,</if>
+            <if test="armyInfoId != null ">army_info_id,</if>
+            <if test="birth != null  and birth != ''">birth,</if>
+            <if test="idCard != null  and idCard != ''">id_card,</if>
+            <if test="nation != null  and nation != ''">nation,</if>
+            <if test="education != null  and education != ''">education,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null ">#{id},</if>
+            <if test="name != null  and name != ''">#{name},</if>
+            <if test="profession != null  and profession != ''">#{profession},</if>
+            <if test="relation != null  and relation != ''">#{relation},</if>
+            <if test="sex != null ">#{sex},</if>
+            <if test="telephone != null  and telephone != ''">#{telephone},</if>
+            <if test="birth != null  and birth != ''">#{birth},</if>
+            <if test="idCard != null  and idCard != ''">#{id_card},</if>
+            <if test="nation != null  and nation != ''">#{nation},</if>
+            <if test="education != null  and education != ''">#{education},</if>
+            <if test="armyInfoId != null ">#{armyInfoId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMember" parameterType="Member">
+        update app_member
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null  and name != ''">name = #{name},</if>
+            <if test="profession != null  and profession != ''">profession = #{profession},</if>
+            <if test="relation != null  and relation != ''">relation = #{relation},</if>
+            <if test="sex != null ">sex = #{sex},</if>
+            <if test="telephone != null  and telephone != ''">telephone = #{telephone},</if>
+            <if test="workAddress != null  and workAddress != ''">work_address = #{workAddress},</if>
+            <if test="armyInfoId != null ">army_info_id = #{armyInfoId},</if>
+            <if test="birth != null  and birth != ''">birth,</if>
+            <if test="idCard != null  and idCard != ''">id_card,</if>
+            <if test="nation != null  and nation != ''">nation,</if>
+            <if test="education != null  and education != ''">education,</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMemberById" parameterType="Long">
+        delete from app_member where id = #{id}
+    </delete>
+
+    <delete id="deleteMemberByIds" parameterType="String">
+        delete from app_member where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectMemberListByUserId" parameterType="string" resultMap="MemberResult">
+        select * from app_member where army_info_id=#{userId}
+    </select>
+    
+</mapper>

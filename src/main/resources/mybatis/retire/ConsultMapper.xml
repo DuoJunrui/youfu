@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.retire.consult.mapper.ConsultMapper">
+
+    <resultMap type="Consult" id="ConsultResult">
+        <result property="id" column="id"/>
+        <result property="consultContent" column="consult_content"/>
+        <result property="consultUserId" column="consult_user_id"/>
+        <result property="consultName" column="consult_name"/>
+        <result property="consultTime" column="consult_time"/>
+        <result property="consultTitle" column="consult_title"/>
+        <result property="replayCheck" column="replay_check"/>
+        <result property="replayContent" column="replay_content"/>
+        <result property="replayName" column="replay_name"/>
+        <result property="replayTime" column="replay_time"/>
+    </resultMap>
+
+    <sql id="selectConsultVo">
+        select id, consult_content, consult_user_id, consult_name, consult_time, consult_title, replay_check, replay_content, replay_name, replay_time from app_consult
+    </sql>
+
+    <select id="selectConsultList" parameterType="Consult" resultMap="ConsultResult">
+        <include refid="selectConsultVo"/>
+        <where>
+            <if test="consultContent != null  and consultContent != ''">and consult_content like concat('%',
+                #{consultContent}, '%')
+            </if>
+            <if test="consultName != null  and consultName != ''">and consult_name like concat('%', #{consultName},
+                '%')
+            </if>
+            <if test="consultTitle != null  and consultTitle != ''">and consult_title like concat('%', #{consultTitle},
+                '%')
+            </if>
+            <if test="replayCheck != null and replayCheck != ''">and replay_check = #{replayCheck}</if>
+        </where>
+    </select>
+
+    <select id="selectConsultById" parameterType="string" resultMap="ConsultResult">
+        <include refid="selectConsultVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertConsult" parameterType="Consult">
+        insert into app_consult
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">id,</if>
+            <if test="consultContent != null  and consultContent != ''">consult_content,</if>
+            <if test="consultUserId != null and consultUserId != '' ">consult_user_id,</if>
+            <if test="consultName != null  and consultName != ''">consult_name,</if>
+            <if test="consultTime != null ">consult_time,</if>
+            <if test="consultTitle != null  and consultTitle != ''">consult_title,</if>
+            <if test="replayCheck != null and replayCheck != ''">replay_check,</if>
+            <if test="replayContent != null  and replayContent != ''">replay_content,</if>
+            <if test="replayName != null  and replayName != ''">replay_name,</if>
+            <if test="replayTime != null ">replay_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">#{id},</if>
+            <if test="consultContent != null  and consultContent != ''">#{consultContent},</if>
+            <if test="consultUserId != null and consultUserId != '' ">#{consultUserId},</if>
+            <if test="consultName != null  and consultName != ''">#{consultName},</if>
+            <if test="consultTime != null ">#{consultTime},</if>
+            <if test="consultTitle != null  and consultTitle != ''">#{consultTitle},</if>
+            <if test="replayCheck != null and replayCheck != ''">#{replayCheck},</if>
+            <if test="replayContent != null  and replayContent != ''">#{replayContent},</if>
+            <if test="replayName != null  and replayName != ''">#{replayName},</if>
+            <if test="replayTime != null ">#{replayTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateConsult" parameterType="Consult">
+        update app_consult
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="consultContent != null  and consultContent != ''">consult_content = #{consultContent},</if>
+            <if test="consultUserId != null and consultUserId != ''">consult_user_id = #{consultUserId},</if>
+            <if test="consultName != null  and consultName != ''">consult_name = #{consultName},</if>
+            <if test="consultTime != null ">consult_time = #{consultTime},</if>
+            <if test="consultTitle != null  and consultTitle != ''">consult_title = #{consultTitle},</if>
+            <if test="replayCheck != null and replayCheck != '' ">replay_check = #{replayCheck},</if>
+            <if test="replayContent != null  and replayContent != ''">replay_content = #{replayContent},</if>
+            <if test="replayName != null  and replayName != ''">replay_name = #{replayName},</if>
+            <if test="replayTime != null ">replay_time = #{replayTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteConsultById" parameterType="string">
+        delete from app_consult where id = #{id}
+    </delete>
+
+    <delete id="deleteConsultByIds" parameterType="String">
+        delete from app_consult where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectConsultListByUserId" parameterType="string" resultMap="ConsultResult">
+        select * from app_consult where consult_user_id = #{userId} order by consult_time desc
+    </select>
+
+    <select id="selectConsultCount" resultType="int">
+        select count(*) from app_consult
+        <where>
+            <if test="replayCheck != null and replayCheck != ''">replay_check = #{replayCheck}</if>
+        </where>
+    </select>
+
+</mapper>
