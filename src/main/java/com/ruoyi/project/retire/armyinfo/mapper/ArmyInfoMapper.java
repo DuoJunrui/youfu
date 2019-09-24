@@ -43,6 +43,9 @@ public interface ArmyInfoMapper
      */
     public int updateArmyInfo(ArmyInfo armyInfo);
 
+
+    public ArmyInfo selectUserByAccount(String account);
+
     /**
      * 删除军人信息
      * 

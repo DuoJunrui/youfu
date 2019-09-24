@@ -11,6 +11,17 @@ import java.util.List;
  * @date 2019-08-28
  */
 public interface IArmyInfoService {
+
+    /**
+     * 导入用户数据
+     *
+     * @param armyInfoList 用户数据列表
+     * @param isUpdateSupport 是否更新支持，如果已存在，则进行更新数据
+     * @return 结果
+     * */
+    public String importArmyInfo(List<ArmyInfo> armyInfoList, Boolean isUpdateSupport);
+
+
     /**
      * 查询军人信息
      *

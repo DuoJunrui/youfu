@@ -3,6 +3,7 @@ package com.ruoyi.project.retire.armyinfo.controller;
 import java.util.List;
 
 import com.ruoyi.common.utils.security.ShiroUtils;
+import com.ruoyi.project.system.user.domain.User;
 import com.ruoyi.project.system.user.service.IUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import com.ruoyi.framework.web.controller.BaseController;
 import com.ruoyi.framework.web.domain.AjaxResult;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.framework.web.page.TableDataInfo;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 军人信息Controller
@@ -69,7 +71,28 @@ public class ArmyInfoController extends BaseController {
     public AjaxResult export(ArmyInfo armyInfo) {
         List<ArmyInfo> list = armyInfoService.selectArmyInfoList(armyInfo);
         ExcelUtil<ArmyInfo> util = new ExcelUtil<ArmyInfo>(ArmyInfo.class);
-        return util.exportExcel(list, "armyinfo");
+        return util.exportExcel(list, "军人信息数据");
+    }
+
+    @Log(title = "军人信息", businessType = BusinessType.IMPORT)
+    @RequiresPermissions("retire:armyInfo:import")
+    @PostMapping("/importData")
+    @ResponseBody
+    public AjaxResult importData(MultipartFile file, boolean updateSupport) throws Exception
+    {
+        ExcelUtil<ArmyInfo> util = new ExcelUtil<ArmyInfo>(ArmyInfo.class);
+        List<ArmyInfo> armyList = util.importExcel(file.getInputStream());
+        String message = armyInfoService.importArmyInfo(armyList, updateSupport);
+        return AjaxResult.success(message);
+    }
+
+    @RequiresPermissions("retire:armyInfo:view")
+    @GetMapping("/importTemplate")
+    @ResponseBody
+    public AjaxResult importTemplate()
+    {
+        ExcelUtil<ArmyInfo> util = new ExcelUtil<ArmyInfo>(ArmyInfo.class);
+        return util.importTemplateExcel("军人信息数据");
     }
 
     /**

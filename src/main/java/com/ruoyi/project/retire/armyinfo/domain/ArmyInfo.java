@@ -74,6 +74,9 @@ public class ArmyInfo extends BaseEntity {
     @Excel(name = "户籍地")
     private String nativePlace;
 
+    @Excel(name = "行政区划")
+    private String area;
+
     /**
      * 人员类别
      */
@@ -257,14 +260,7 @@ public class ArmyInfo extends BaseEntity {
     /**
      * 照片
      */
-    @Excel(name = "照片")
     private String photo;
-
-    /**
-     * 照片
-     */
-    @Excel(name = "行政区划")
-    private String area;
 
     public String getId() {
         return id;

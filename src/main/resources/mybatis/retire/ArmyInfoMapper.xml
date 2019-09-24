@@ -53,7 +53,7 @@
     </resultMap>
 
     <sql id="selectArmyInfoVo">
-        select id, account, password, username, role, sex, nation, birthday, id_card, native_place, user_type, politics_status, degree_of_education, address, household_type, marital_status, phone, telephone, qq_num, work_status, slava_status, apply_slava_time, hang_slava_time, user_income, work_dept, depr_type, medicare, annuity, accumulation, 'grant', disabled, house_status, assistance, gather_dept, gather_user, military_time, retired_time, troops_name, military_nation, certificate_number, photo, area, create_time, update_time from app_army_info
+        select id, account, password, username, role, sex, nation, birthday, id_card, native_place, user_type, politics_status, degree_of_education, address, household_type, marital_status, phone, telephone, qq_num, work_status, slava_status, apply_slava_time, hang_slava_time, user_income, work_dept, depr_type, medicare, annuity, accumulation, `grant`, disabled, house_status, assistance, gather_dept, gather_user, military_time, retired_time, troops_name, military_nation, certificate_number, photo, area, create_time, update_time from app_army_info
     </sql>
 
     <select id="selectArmyInfoList" parameterType="ArmyInfo" resultMap="ArmyInfoResult">
@@ -192,8 +192,8 @@
             <if test="phone != null  and phone != ''">phone = #{phone},</if>
             <if test="telephone != null  and telephone != ''">telephone = #{telephone},</if>
             <if test="qqNum != null  and qqNum != ''">qq_num = #{qqNum},</if>
-            <if test="workStatus != null workStatus != ''">work_status = #{workStatus},</if>
-            <if test="slavaStatus != null workStatus != ''">slava_status = #{slavaStatus},</if>
+            <if test="workStatus != null and workStatus != ''">work_status = #{workStatus},</if>
+            <if test="slavaStatus != null and slavaStatus != ''">slava_status = #{slavaStatus},</if>
             <if test="applySlavaTime != null ">apply_slava_time = #{applySlavaTime},</if>
             <if test="hangSlavaTime != null ">hang_slava_time = #{hangSlavaTime},</if>
             <if test="userIncome != null  and userIncome != ''">user_income = #{userIncome},</if>
@@ -223,6 +223,11 @@
         </trim>
         where id = #{id}
     </update>
+
+    <select id="selectUserByAccount" parameterType="String" resultMap="ArmyInfoResult">
+        <include refid="selectArmyInfoVo"/>
+        where app_army_info.account = #{account}
+    </select>
 
     <delete id="deleteArmyInfoById" parameterType="String">
         delete from app_army_info where id = #{id}
