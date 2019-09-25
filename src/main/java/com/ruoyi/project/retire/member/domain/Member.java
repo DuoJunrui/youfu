@@ -34,7 +34,7 @@ public class Member extends BaseEntity
 
     /** 性别 */
     @Excel(name = "性别")
-    private Long sex;
+    private String sex;
 
     /** 电话号码 */
     @Excel(name = "电话号码")
@@ -91,12 +91,12 @@ public class Member extends BaseEntity
     {
         return relation;
     }
-    public void setSex(Long sex) 
+    public void setSex(String sex)
     {
         this.sex = sex;
     }
 
-    public Long getSex() 
+    public String getSex()
     {
         return sex;
     }

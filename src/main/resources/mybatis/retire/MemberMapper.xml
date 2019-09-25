@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectMemberVo"/>
         <where>  
             <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
-            <if test="sex != null "> and sex = #{sex}</if>
+            <if test="sex != null and sex != ''"> and sex = #{sex}</if>
             <if test="telephone != null  and telephone != ''"> and telephone = #{telephone}</if>
         </where>
     </select>
@@ -46,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="name != null  and name != ''">name,</if>
             <if test="profession != null  and profession != ''">profession,</if>
             <if test="relation != null  and relation != ''">relation,</if>
-            <if test="sex != null ">sex,</if>
+            <if test="sex != null and sex != ''">sex,</if>
             <if test="telephone != null  and telephone != ''">telephone,</if>
             <if test="workAddress != null  and workAddress != ''">work_address,</if>
             <if test="armyInfoId != null ">army_info_id,</if>
@@ -60,7 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="name != null  and name != ''">#{name},</if>
             <if test="profession != null  and profession != ''">#{profession},</if>
             <if test="relation != null  and relation != ''">#{relation},</if>
-            <if test="sex != null ">#{sex},</if>
+            <if test="sex != null and sex != ''">#{sex},</if>
             <if test="telephone != null  and telephone != ''">#{telephone},</if>
             <if test="birth != null  and birth != ''">#{birth},</if>
             <if test="idCard != null  and idCard != ''">#{id_card},</if>
@@ -76,7 +76,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="name != null  and name != ''">name = #{name},</if>
             <if test="profession != null  and profession != ''">profession = #{profession},</if>
             <if test="relation != null  and relation != ''">relation = #{relation},</if>
-            <if test="sex != null ">sex = #{sex},</if>
+            <if test="sex != null and sex != ''">sex = #{sex},</if>
             <if test="telephone != null  and telephone != ''">telephone = #{telephone},</if>
             <if test="workAddress != null  and workAddress != ''">work_address = #{workAddress},</if>
             <if test="armyInfoId != null ">army_info_id = #{armyInfoId},</if>

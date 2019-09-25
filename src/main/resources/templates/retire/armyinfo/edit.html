@@ -47,7 +47,9 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">人员类别：</label>
             <div class="col-sm-4">
-                <input name="userType" th:field="*{userType}" class="form-control" type="text">
+                <select name="userType" class="form-control m-b" th:with="type=${@dict.getType('retire_user_type')}">
+                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                </select>
             </div>
             <label class="col-sm-2 control-label">政治面貌：</label>
             <div class="col-sm-4">
