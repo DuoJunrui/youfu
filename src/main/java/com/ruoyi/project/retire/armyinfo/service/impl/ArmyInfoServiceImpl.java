@@ -126,6 +126,7 @@ public class ArmyInfoServiceImpl implements IArmyInfoService {
     @Override
     public int updateArmyInfo(ArmyInfo armyInfo) {
         armyInfo.setUpdateTime(DateUtils.getNowDate());
+        armyInfo.setAccount(armyInfo.getTelephone());
         return armyInfoMapper.updateArmyInfo(armyInfo);
     }
 

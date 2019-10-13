@@ -49,11 +49,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="sex != null and sex != ''">sex,</if>
             <if test="telephone != null  and telephone != ''">telephone,</if>
             <if test="workAddress != null  and workAddress != ''">work_address,</if>
-            <if test="armyInfoId != null ">army_info_id,</if>
-            <if test="birth != null  and birth != ''">birth,</if>
+            <if test="birth != null">birth,</if>
             <if test="idCard != null  and idCard != ''">id_card,</if>
             <if test="nation != null  and nation != ''">nation,</if>
             <if test="education != null  and education != ''">education,</if>
+            <if test="armyInfoId != null ">army_info_id,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null ">#{id},</if>
@@ -62,8 +62,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="relation != null  and relation != ''">#{relation},</if>
             <if test="sex != null and sex != ''">#{sex},</if>
             <if test="telephone != null  and telephone != ''">#{telephone},</if>
-            <if test="birth != null  and birth != ''">#{birth},</if>
-            <if test="idCard != null  and idCard != ''">#{id_card},</if>
+            <if test="workAddress != null  and workAddress != ''">#{workAddress},</if>
+            <if test="birth != null">#{birth},</if>
+            <if test="idCard != null  and idCard != ''">#{idCard},</if>
             <if test="nation != null  and nation != ''">#{nation},</if>
             <if test="education != null  and education != ''">#{education},</if>
             <if test="armyInfoId != null ">#{armyInfoId},</if>
@@ -80,7 +81,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="telephone != null  and telephone != ''">telephone = #{telephone},</if>
             <if test="workAddress != null  and workAddress != ''">work_address = #{workAddress},</if>
             <if test="armyInfoId != null ">army_info_id = #{armyInfoId},</if>
-            <if test="birth != null  and birth != ''">birth,</if>
+            <if test="birth != null">birth,</if>
             <if test="idCard != null  and idCard != ''">id_card,</if>
             <if test="nation != null  and nation != ''">nation,</if>
             <if test="education != null  and education != ''">education,</if>
